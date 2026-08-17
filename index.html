@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宠物身份证生成器</title>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f2f5;
+            padding: 24px;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 30px;
+        }
+        
+        .form-panel {
+            background: #fff;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px #00000015;
+        }
+        
+        .form-group {
+            margin-bottom: 14px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 600;
+            color: #224477;
+        }
+        
+        input {
+            width: 100%;
+            padding: 8px 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        
+        button {
+            width: 100%;
+            padding: 12px;
+            font-size: 17px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        #downloadBtn {
+            background: #194794;
+            color: white;
+        }
+        
+        .preview-wrap {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+        /* 宠物证件卡片样式 */
+        
+        #petIdCard {
+            width: 920px;
+            height: 560px;
+            background: #f8f6f4;
+            border: 12px solid #183468;
+            border-radius: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-header {
+            height: 50px;
+            background: #183468;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            gap: 15px;
+        }
+        
+        .star {
+            font-size: 30px;
+        }
+        
+        .red-bar {
+            margin-top: 4px;
+            height: 22px;
+            background: #992828;
+        }
+        
+        .card-body {
+            display: flex;
+            height: 370px;
+            padding: 20px;
+            margin-left: 20px;
+        }
+        
+        .photo-box {
+            width: 260px;
+            height: 320px;
+            overflow: hidden;
+            background: #304060;
+        }
+        
+        #petPhotoImg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .text-area {
+            flex: 1;
+            padding-left: 30px;
+        }
+        
+        .text-item .title {
+            font-size: 20px;
+            color: #2255aa;
+            font-weight: bold;
+        }
+        
+        .text-item .val {
+            font-size: 28px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        
+        .small-right-photo {
+            position: absolute;
+            right: 20px;
+            top: 110px;
+            width: 160px;
+            height: 180px;
+            overflow: hidden;
+            opacity: 0.75;
+        }
+        
+        #smallPetImg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .id-number-line {
+            font-size: 48px;
+            color: #90a0c0;
+            letter-spacing: 6px;
+            position: absolute;
+            bottom: 100px;
+            left: 330px;
+        }
+        
+        .card-footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            background: #183468;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+        }
+        
+        .cku-text {
+            color: #a0b8dd;
+            font-size: 44px;
+            font-weight: bold;
+        }
+        
+        .paw-group {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        
+        .paw-icon {
+            width: 60px;
+            height: 64px;
+            color: #183468;
+        }
+        
+        #showName {
+            font-size: 40px;
+        }
+        
+        .val-nick {
+            font-size: 22px;
+            color: #444444;
+            font-weight: bold;
+            margin: -8px 0 12px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- 左侧编辑面板 -->
+        <div class="form-panel">
+            <h2>🐾 宠物身份证编辑</h2>
+
+            <div class="form-group">
+                <label>上传左侧宠物照片</label>
+                <input type="file" id="photoInput" accept="image/*">
+            </div>
+
+            <div class="form-group">
+                <label>上传右上角宠物照片</label>
+                <input type="file" id="smallPhotoInput" accept="image/*">
+            </div>
+
+            <div class="form-group">
+                <label>NAME 名字</label>
+                <input id="inputName" value="VENUS">
+            </div>
+            <div class="form-group">
+                <label>别名/小名</label>
+                <input id="inputNick" value="/vv">
+            </div>
+            <div class="form-group">
+                <label>BREED 品种</label>
+                <input id="inputBreed" value="WHITE SWISS SHEPHERD">
+            </div>
+            <div class="form-group">
+                <label>SEX 性别</label>
+                <input id="inputSex" value="M">
+            </div>
+            <div class="form-group">
+                <label>DATE OF BIRTH 出生日期</label>
+                <input id="inputBirth" value="6 Dec 2025">
+            </div>
+            <div class="form-group">
+                <label>NATIONALITY 国籍</label>
+                <input id="inputNation" value="CHINA">
+            </div>
+            <div class="form-group">
+                <label>底部大编号</label>
+                <input id="inputBigId" value="990001005004004">
+            </div>
+            <div class="form-group">
+                <label>CKU编号</label>
+                <input id="inputCku" value="CKU-347628857/26">
+            </div>
+
+            <button id="downloadBtn">💾 导出保存图片PNG</button>
+        </div>
+
+        <!-- 右侧证件预览 -->
+        <div class="preview-wrap">
+            <div id="petIdCard">
+                <div class="card-header">
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span> IDENTIFICATION CARD
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                </div>
+                <div class="red-bar"></div>
+
+                <div class="card-body">
+                    <div class="photo-box">
+                        <img id="petPhotoImg" src="" alt="宠物照片">
+                    </div>
+
+                    <div class="text-area">
+                        <div class="text-item">
+                            <div class="title">名字/NAME</div>
+                            <div class="val">
+                                <span id="showName">VENUS</span>
+                                <span class="val‑nick" id="showNick">/vv</span>
+                            </div>
+                        </div>
+
+                        <div class="text-item">
+                            <div class="title">品种/BREED</div>
+                            <div class="val" id="showBreed">WHITE SWISS SHEPHERD</div>
+                        </div>
+                        <div class="text-item">
+                            <div class="title">性别/SEX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;生日/DATE OF BIRTH</div>
+                            <div class="val"><span id="showSex">M</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="showBirth">6 Dec 2025</span></div>
+                        </div>
+                        <div class="text-item">
+                            <div class="title">国籍/NATIONALITY</div>
+                            <div class="val" id="showNation">CHINA</div>
+                        </div>
+                    </div>
+
+                    <div class="small-right-photo">
+                        <img id="smallPetImg" src="" alt="右上角宠物照片">
+                    </div>
+                </div>
+
+                <div class="id-number-line" id="showBigId">990001005004004</div>
+
+                <div class="red-bar"></div>
+
+                <div class="card-footer">
+                    <div class="cku-text" id="showCku">CKU-347628857/26</div>
+                    <div class="paw-group">
+
+                        <img class="paw-icon" src="https://img.icons8.com/sf-black-filled/64/dog-footprint.png" alt="dog-footprint" />
+                        <img class="paw-icon" src="https://img.icons8.com/sf-black-filled/64/dog-footprint.png" alt="dog-footprint" />
+                        <img class="paw-icon" src="https://img.icons8.com/sf-black-filled/64/dog-footprint.png" alt="dog-footprint" />
+                        <img class="paw-icon" src="https://img.icons8.com/sf-black-filled/64/dog-footprint.png" alt="dog-footprint" />
+                        <img class="paw-icon" src="https://img.icons8.com/sf-black-filled/64/dog-footprint.png" alt="dog-footprint" />
+                        <img class="paw-icon" src="https://img.icons8.com/sf-black-filled/64/dog-footprint.png" alt="dog-footprint" />
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const photoInput = document.getElementById('photoInput');
+        const smallPhotoInput = document.getElementById('smallPhotoInput');
+
+        const petPhotoImg = document.getElementById('petPhotoImg');
+        const smallPetImg = document.getElementById('smallPetImg');
+
+        const inputName = document.getElementById('inputName');
+        const inputNick = document.getElementById('inputNick');
+        const showNick = document.getElementById('showNick');
+        const inputBreed = document.getElementById('inputBreed');
+        const inputSex = document.getElementById('inputSex');
+        const inputBirth = document.getElementById('inputBirth');
+        const inputNation = document.getElementById('inputNation');
+        const inputBigId = document.getElementById('inputBigId');
+        const inputCku = document.getElementById('inputCku');
+
+        const showName = document.getElementById('showName');
+        const showBreed = document.getElementById('showBreed');
+        const showSex = document.getElementById('showSex');
+        const showBirth = document.getElementById('showBirth');
+        const showNation = document.getElementById('showNation');
+        const showBigId = document.getElementById('showBigId');
+        const showCku = document.getElementById('showCku');
+
+        const downloadBtn = document.getElementById('downloadBtn');
+        const petIdCard = document.getElementById('petIdCard');
+
+        // 左侧大图单独上传
+        photoInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                petPhotoImg.src = ev.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // 右上角小图单独上传
+        smallPhotoInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                smallPetImg.src = ev.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // 实时同步文本
+        inputName.oninput = () => showName.innerText = inputName.value.toUpperCase();
+        inputNick.oninput = () => showNick.innerText = inputNick.value;
+        inputBreed.oninput = () => showBreed.innerText = inputBreed.value.toUpperCase();
+        inputSex.oninput = () => showSex.innerText = inputSex.value.toUpperCase();
+        inputBirth.oninput = () => showBirth.innerText = inputBirth.value;
+        inputNation.oninput = () => showNation.innerText = inputNation.value.toUpperCase();
+        inputBigId.oninput = () => showBigId.innerText = inputBigId.value;
+        inputCku.oninput = () => showCku.innerText = inputCku.value.toUpperCase();
+
+        // 导出图片
+        downloadBtn.addEventListener('click', async() => {
+            downloadBtn.innerText = "生成中...";
+            downloadBtn.disabled = true;
+
+            try {
+                const canvas = await html2canvas(petIdCard, {
+                    scale: 2,
+                    useCORS: true,
+                    backgroundColor: null
+                });
+
+                const link = document.createElement('a');
+                link.download = "pet_id_card.png";
+                link.href = canvas.toDataURL("image/png");
+                link.click();
+            } catch (err) {
+                alert("导出失败：" + err.message);
+            } finally {
+                downloadBtn.innerText = "💾 导出保存图片PNG";
+                downloadBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+
+</html>
