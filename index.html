@@ -47,8 +47,14 @@
         
         @font-face {
             font-family: 'chinese';
-            src: url("fonts/SmileySans-Oblique-2.ttf")；
-             size-adjust: 60%;
+            src: url("fonts/SmileySans-Oblique-2.ttf");
+            size-adjust: 60%;
+        }
+        
+        @font-face {
+            font-family: 'creative';
+            src: url("fonts/OfficialBook.ttf");
+            size-adjust: 70%;
         }
         
         body {
@@ -108,8 +114,10 @@
         
         .preview-wrap {
             display: flex;
-            align-items: flex-start;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 30px;
         }
         /* 宠物证件卡片样式 */
         
@@ -274,6 +282,116 @@
             height: auto;
             display: block;
         }
+        /* ==========背面卡片CSS========== */
+        
+        #petIdCardBack {
+            width: 920px;
+            height: 560px;
+            border-radius: 14px;
+            position: relative;
+            overflow: hidden;
+            background: #183468;
+            color: #fff;
+        }
+        
+        .back-header {
+            height: 64px;
+            background: #FFF7E8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .back-header-title {
+            font-family: 'bright', 'chinese';
+            font-size: 62px;
+            color: #183468;
+        }
+        
+        .back-star {
+            color: #183468;
+            font-size: 32px;
+        }
+        
+        .back-body {
+            display: flex;
+            padding: 30px;
+            height: 420px;
+            gap: 32px;
+        }
+        
+        .back-qrcode-wrap {
+            width: 340px;
+            height: 340px;
+            background: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        #backQrcodeImg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .back-text-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 26px;
+        }
+        
+        .back-note-text {
+            font-size: 42px;
+            line-height: 1;
+            font-family: 'creative', 'chinese';
+            color: #b4c8f0;
+        }
+        
+        #showBackEmail,
+        #showBackPhone {
+            font-family: 'design';
+        }
+        
+        .back-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 36px;
+            color: #fff9e8;
+            font-family: 'bright', 'chinese';
+        }
+        
+        .back-icon {
+            font-size: 42px;
+        }
+        
+        .back-footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            background: #FFF7E8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+        }
+        
+        .back-paw-icon {
+            width: 40px;
+            height: 48px;
+        }
+        
+        .back-email-icon {
+            height: 35px;
+        }
+        
+        .back-phone-icon {
+            height: 40px;
+        }
     </style>
 </head>
 
@@ -324,6 +442,27 @@
             <div class="form-group">
                 <label>CKU编号</label>
                 <input id="inputCku" value="CKU-347628857/26">
+            </div>
+
+            <!-- =========背面表单输入框新增========= -->
+            <div class="form-group">
+                <label>----------🔖卡片背面信息----------</label>
+            </div>
+            <div class="form-group">
+                <label>上传背面二维码图片</label>
+                <input type="file" id="backQrInput" accept="image/*">
+            </div>
+            <div class="form-group">
+                <label>寻回提示文案</label>
+                <input id="inputBackNote" value="Please call my human if you found me!! She is probably crying and worried sick... Please call her so I can go home and act like this never happened.">
+            </div>
+            <div class="form-group">
+                <label>主人邮箱</label>
+                <input id="inputBackEmail" value="fengyc_cassie@hotmail.com">
+            </div>
+            <div class="form-group">
+                <label>主人联系电话</label>
+                <input id="inputBackPhone" value="189 2648 6490">
             </div>
 
             <button id="downloadBtn">💾 导出保存图片PNG</button>
@@ -399,6 +538,55 @@
                     </div>
                 </div>
             </div>
+
+            <!-- =========背面卡片DOM新增========= -->
+            <div id="petIdCardBack">
+                <div class="back-header">
+                    <span class="back-star">★</span>
+                    <span class="back-star">★</span>
+                    <span class="back-star">★</span>
+                    <span class="back-star">★</span>
+                    <div class="back-header-title">OWNER CONTACT</div>
+                    <span class="back-star">★</span>
+                    <span class="back-star">★</span>
+                    <span class="back-star">★</span>
+                    <span class="back-star">★</span>
+                </div>
+                <div class="back-body">
+                    <div class="back-qrcode-wrap">
+                        <img id="backQrcodeImg" src="" alt="二维码">
+                    </div>
+                    <div class="back-text-area">
+                        <div class="back-note-text" id="showBackNote">Please call my human if you found me!! She is probably crying and worried sick... Please call her so I can go home and act like this never happened.</div>
+                        <div class="back-contact-item">
+                            <span class="back-icon">  <img class="back-email-icon" src="images/email-svgrepo-com.svg" /></span>
+                            <span>:</span>
+                            <span id="showBackEmail">fengyc_cassie@hotmail.com</span>
+                        </div>
+                        <div class="back-contact-item">
+                            <span class="back-icon"><img class="back-phone-icon" src="images/telephone-phone-call-svgrepo-com.svg" /></span>
+                            <span>:</span>
+                            <span id="showBackPhone">189 2648 xxxx</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="back-footer">
+                    <img class="back-paw-icon" src="images/paw-svgrepo-com.svg" />
+                    <img class="back-paw-icon" src="images/paw-svgrepo-com.svg" />
+                    <img class="back-paw-icon" src="images/paw-svgrepo-com.svg" />
+                    <img class="back-paw-icon" src="images/paw-svgrepo-com.svg" />
+                    <img class="back-paw-icon" src="images/paw-svgrepo-com.svg" />
+                    <img class="back-paw-icon" src="images/paw-svgrepo-com.svg" />
+                    <img class="back-paw-icon" src="images/paw-svgrepo-com.svg" />
+                    <img class="back-paw-icon" src="images/paw-svgrepo-com.svg" />
+                    <img class="back-paw-icon" src="images/paw-svgrepo-com.svg" />
+                    <img class="back-paw-icon" src="images/paw-svgrepo-com.svg" />
+                    <img class="back-paw-icon" src="images/paw-svgrepo-com.svg" />
+                    <img class="back-paw-icon" src="images/paw-svgrepo-com.svg" />
+                    <img class="back-paw-icon" src="images/paw-svgrepo-com.svg" />
+                    <img class="back-paw-icon" src="images/paw-svgrepo-com.svg" />
+                </div>
+            </div>
         </div>
     </div>
 
@@ -430,6 +618,18 @@
         const downloadBtn = document.getElementById('downloadBtn');
         const petIdCard = document.getElementById('petIdCard');
 
+        //====背面新增变量====
+        const backQrInput = document.getElementById('backQrInput');
+        const backQrcodeImg = document.getElementById('backQrcodeImg');
+        const inputBackNote = document.getElementById('inputBackNote');
+        const inputBackEmail = document.getElementById('inputBackEmail');
+        const inputBackPhone = document.getElementById('inputBackPhone');
+        const showBackNote = document.getElementById('showBackNote');
+        const showBackEmail = document.getElementById('showBackEmail');
+        const showBackPhone = document.getElementById('showBackPhone');
+        const petIdCardBack = document.getElementById('petIdCardBack');
+
+
         // 左侧大图单独上传
         photoInput.addEventListener('change', function(e) {
             const file = e.target.files[0];
@@ -452,6 +652,17 @@
             reader.readAsDataURL(file);
         });
 
+        //背面二维码上传
+        backQrInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                backQrcodeImg.src = ev.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
         // 实时同步文本
         inputName.oninput = () => showName.innerText = inputName.value.toUpperCase();
         inputNick.oninput = () => showNick.innerText = inputNick.value;
@@ -462,22 +673,40 @@
         inputBigId.oninput = () => showBigId.innerText = inputBigId.value;
         inputCku.oninput = () => showCku.innerText = inputCku.value.toUpperCase();
 
-        // 导出图片
+        //背面文本实时更新
+        inputBackNote.oninput = () => showBackNote.innerText = inputBackNote.value;
+        inputBackEmail.oninput = () => showBackEmail.innerText = inputBackEmail.value;
+        inputBackPhone.oninput = () => showBackPhone.innerText = inputBackPhone.value;
+
+
+        // 导出图片【修改：同时导出正面、背面两张png】
         downloadBtn.addEventListener('click', async() => {
             downloadBtn.innerText = "生成中...";
             downloadBtn.disabled = true;
 
             try {
-                const canvas = await html2canvas(petIdCard, {
+                //导出正面
+                const canvasFront = await html2canvas(petIdCard, {
                     scale: 2,
                     useCORS: true,
                     backgroundColor: null
                 });
+                const linkFront = document.createElement('a');
+                linkFront.download = "pet_id_card_正面.png";
+                linkFront.href = canvasFront.toDataURL("image/png");
+                linkFront.click();
 
-                const link = document.createElement('a');
-                link.download = "pet_id_card.png";
-                link.href = canvas.toDataURL("image/png");
-                link.click();
+                //导出背面
+                const canvasBack = await html2canvas(petIdCardBack, {
+                    scale: 2,
+                    useCORS: true,
+                    backgroundColor: null
+                });
+                const linkBack = document.createElement('a');
+                linkBack.download = "pet_id_card_背面.png";
+                linkBack.href = canvasBack.toDataURL("image/png");
+                linkBack.click();
+
             } catch (err) {
                 alert("导出失败：" + err.message);
             } finally {
