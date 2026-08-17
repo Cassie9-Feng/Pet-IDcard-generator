@@ -11,6 +11,37 @@
             box-sizing: border-box;
             font-family: Arial, Helvetica, sans-serif;
         }
+        /* fonts */
+        
+        @font-face {
+            font-family: 'south';
+            src: url("fonts/Southland-Bubble.otf")
+        }
+        
+        @font-face {
+            font-family: 'bright';
+            src: url("fonts/Brighton-Beach.otf")
+        }
+        
+        @font-face {
+            font-family: 'design';
+            src: url("fonts/Outline-Designer.ttf")
+        }
+        
+        @font-face {
+            font-family: 'baby';
+            src: url("fonts/Baby-Chunky.ttf")
+        }
+        
+        @font-face {
+            font-family: 'digital';
+            src: url("fonts/Canterbury.ttf")
+        }
+        
+        @font-face {
+            font-family: 'digitaltwo';
+            src: url("fonts/ShareTechMono-Regular.ttf")
+        }
         
         body {
             background-color: #f0f2f5;
@@ -90,8 +121,8 @@
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 40px;
-            font-weight: bold;
+            font-family: 'bright';
+            font-size: 80px;
             gap: 15px;
         }
         
@@ -137,10 +168,9 @@
         }
         
         .text-item .val {
-            font-size: 28px;
-            font-weight: bold;
+            font-family: 'bright';
+            font-size: 44px;
             text-transform: uppercase;
-            margin-bottom: 8px;
         }
         
         .small-right-photo {
@@ -181,7 +211,7 @@
         }
         
         .cku-text {
-              color: #93a1c0;
+            color: #93a1c0;
             font-size: 44px;
             font-weight: bold;
         }
@@ -193,12 +223,29 @@
         }
         
         .paw-icon {
-           width: 45px;
+            width: 45px;
             height: 55px;
         }
         
         #showName {
-            font-size: 40px;
+            font-size: 60px;
+            font-family: 'bright';
+        }
+        
+        #showNick {
+            font-family: 'bright';
+            font-size: 35px;
+        }
+        
+        #showSex,
+        #showBirth {
+            font-family: 'bright';
+        }
+        
+        #showCku,
+        #showBigId {
+            font-family: 'digitaltwo';
+            font-weight: bold;
         }
         
         .val-nick {
@@ -319,7 +366,7 @@
                     <div class="cku-text" id="showCku">CKU-347628857/26</div>
                     <div class="paw-group">
 
-                          <img class="paw-icon" src="images/paw-svgrepo-com.svg" alt="dog-footprint" />
+                        <img class="paw-icon" src="images/paw-svgrepo-com.svg" alt="dog-footprint" />
                         <img class="paw-icon" src="images/paw-svgrepo-com.svg" alt="dog-footprint" />
                         <img class="paw-icon" src="images/paw-svgrepo-com.svg" alt="dog-footprint" />
                         <img class="paw-icon" src="images/paw-svgrepo-com.svg" alt="dog-footprint" />
