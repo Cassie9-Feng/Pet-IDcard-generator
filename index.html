@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>宠物身份证生成器</title>
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-
+    <link rel="preload" href="fonts/SmileySans-Oblique-2.ttf" as="font" type="font/ttf" crossorigin>
 
     <style>
         * {
@@ -210,6 +210,10 @@
             color: #90a0c0;
             letter-spacing: 6px;
             position: absolute;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            max-width: 580px;
             bottom: 100px;
             left: 330px;
         }
@@ -228,6 +232,10 @@
         
         .cku-text {
             color: #93a1c0;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            max-width: 540px;
             font-size: 44px;
             font-weight: bold;
         }
@@ -336,6 +344,9 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 500px;
             gap: 26px;
         }
         
@@ -388,10 +399,10 @@
         .back-phone-icon {
             height: 40px;
         }
+        
         .intro {
             margin: 70px;
         }
-        
     </style>
 </head>
 
@@ -413,12 +424,12 @@
             <h2>🐾 宠物身份证编辑</h2>
 
             <div class="form-group">
-                <label>上传左侧宠物照片</label>
+                <label>Upload Left Photo 上传左侧宠物照片</label>
                 <input type="file" id="photoInput" accept="image/*">
             </div>
 
             <div class="form-group">
-                <label>上传右上角宠物照片</label>
+                <label>Upload Top-Right Photo 上传右上角宠物照片</label>
                 <input type="file" id="smallPhotoInput" accept="image/*">
             </div>
 
@@ -427,7 +438,7 @@
                 <input id="inputName" value="VENUS">
             </div>
             <div class="form-group">
-                <label>别名/小名</label>
+                <label>NICKNAME /ALIAS 别名/小名</label>
                 <input id="inputNick" value="/vv">
             </div>
             <div class="form-group">
@@ -447,11 +458,11 @@
                 <input id="inputNation" value="CHINA">
             </div>
             <div class="form-group">
-                <label>底部大编号</label>
+                <label>ID Number 底部大编号</label>
                 <input id="inputBigId" value="99000100500xxxx">
             </div>
             <div class="form-group">
-                <label>CKU编号</label>
+                <label>CKU Registration no. CKU编号</label>
                 <input id="inputCku" value="CKU-34762xxxx/xx">
             </div>
 
@@ -460,19 +471,19 @@
                 <label>----------身份证背面信息----------</label>
             </div>
             <div class="form-group">
-                <label>上传背面二维码图片</label>
+                <label>Upload QR Code 上传背面二维码图片</label>
                 <input type="file" id="backQrInput" accept="image/*">
             </div>
             <div class="form-group">
-                <label>寻回提示文案</label>
+                <label>Message 寻回提示文案</label>
                 <input id="inputBackNote" value="Please call my human if you found me!! She is probably crying and worried sick... Please call her so I can go home and act like this never happened.">
             </div>
             <div class="form-group">
-                <label>主人邮箱</label>
+                <label>Email 主人邮箱</label>
                 <input id="inputBackEmail" value="fengyc_cassie@hotmail.com">
             </div>
             <div class="form-group">
-                <label>主人联系电话</label>
+                <label>Phone 主人联系电话</label>
                 <input id="inputBackPhone" value="189 2648 xxxx">
             </div>
 
